@@ -1,9 +1,13 @@
 package com.lavadero.apirestlavadero.Entities;
 
+import org.hibernate.validator.constraints.Length;
+
 import jakarta.persistence.Entity;
 // import jakarta.persistence.GeneratedValue;
 // import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -15,7 +19,10 @@ public class Vehiculo {
     @NotBlank(message = "Por favor ingrese una placa, no registrada anteriormente")
     private String placa;
     private String nombre;
-    private Long telefono;
+    @Length(min=10, max =14)
+    private String telefono;
+    @DecimalMin(value = "1", message = "El valor debe ser igual o mayor a 1")
+    @DecimalMax(value = "6", message = "El valor debe ser igual o menor a 6")
     private int numero_lavadas;
     private String descripcion; 
 
@@ -55,11 +62,11 @@ public class Vehiculo {
         this.numero_lavadas = numero_lavadas;
     }
 
-    public Long getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Long telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
     
