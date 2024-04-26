@@ -1,13 +1,14 @@
 package com.lavadero.apirestlavadero.Services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.lavadero.apirestlavadero.Entities.Vehiculo;
 import com.lavadero.apirestlavadero.Repositorys.VehiculosRepository;
+import com.lavadero.apirestlavadero.error.VehiculoNoFundException;
 
 import jakarta.transaction.Transactional;
 
@@ -31,26 +32,34 @@ public class ServicesVehiculosImpl implements ServicesVehiculos{
 
     @Override
     public Vehiculo saveVehiculo(Vehiculo vehiculo) {
-        List<Vehiculo> vehiculosRegistrados = vehiculosRepository.findAll();
-        for (Vehiculo vehiculoRegistrado : vehiculosRegistrados) {
-            if (vehiculoRegistrado.getPlaca().equals(vehiculo.getPlaca())) {
-                return null;
-            }
-        }
+        //validacion de placa repetida
+        // List<Vehiculo> vehiculosRegistrados = vehiculosRepository.findAll();
+        // for (Vehiculo vehiculoRegistrado : vehiculosRegistrados) {
+        //     if (vehiculoRegistrado.getPlaca().equals(vehiculo.getPlaca())) {
+        //         return null;
+        //     }
+        // }
 
         return vehiculosRepository.save(vehiculo);
     }
 
     @Transactional
     @Override
-    public Vehiculo updateVehiculo(String placa, Vehiculo vehiculo) {
+    public Vehiculo updateVehiculo(String placa, Vehiculo vehiculo) throws VehiculoNoFundException{
 
-        if(vehiculosRepository.findVehiculoByPlaca(placa).isEmpty()){
-            return null;
+        //si la placa no esta retorna nulo
+        // if(vehiculosRepository.findVehiculoByPlaca(placa).isEmpty()){
+        //     return null;
+        // }
+        //con manejo de VehiculoNoFundException:
+        Optional<Vehiculo> vehiculoBuscado= vehiculosRepository.findVehiculoByPlaca(placa);
+        if(!vehiculoBuscado.isPresent()){
+                throw new VehiculoNoFundException("Esa placa no se encuentra registrada");
         }
 
         Vehiculo vehiculoAntiguo = vehiculosRepository.findVehiculoByPlaca(placa).get();
 
+        //acmbiar placa por una ya existente:
         boolean placaRegistrada=false;
         List<Vehiculo> vehiculosRegistrados = vehiculosRepository.findAll();
         for (Vehiculo vehiculoRegistrado : vehiculosRegistrados) {

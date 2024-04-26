@@ -12,5 +12,5 @@ public interface VehiculosRepository extends JpaRepository<Vehiculo, String> {
     @Query("SELECT v FROM Vehiculo v WHERE v.placa = :placa")
     Optional<Vehiculo> findVehiculoByPlaca(String placa);//consulta personalizada con codigo JPQL
 
-    String deleteByPlaca(String placa);//consulta personalizada por spring JPA
+    String deleteByPlaca(String placa);//consulta personalizada por spring JPA (inversión de control)
 }

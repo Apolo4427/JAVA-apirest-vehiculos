@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 // import jakarta.persistence.GeneratedValue;
 // import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Vehiculo {
@@ -11,6 +12,7 @@ public class Vehiculo {
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     //private Long id;
+    @NotBlank(message = "Por favor ingrese una placa, no registrada anteriormente")
     private String placa;
     private String nombre;
     private Long telefono;

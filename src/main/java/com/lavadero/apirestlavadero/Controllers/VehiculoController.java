@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lavadero.apirestlavadero.Entities.Vehiculo;
 import com.lavadero.apirestlavadero.Services.ServicesVehiculosImpl;
+import com.lavadero.apirestlavadero.error.VehiculoNoFundException;
+
+import jakarta.validation.Valid;
 
 import java.util.List;
 import java.util.Objects;
@@ -29,18 +32,20 @@ public class VehiculoController {
         return servicesVehiculosImpl.findAllVehiculos();
     }
 
-    @PostMapping("/registrar")
-    public Vehiculo registerVehiculo(@RequestBody Vehiculo vehiculo){
-        if(Objects.nonNull(vehiculo.getPlaca()) && !vehiculo.getPlaca().isEmpty()){
-            if(vehiculo.getPlaca().contains("-")){
-                return servicesVehiculosImpl.saveVehiculo(vehiculo);
-            }
-        }
-        return null;
+    @PostMapping("/registrar")//@Valid -> "spring-boot-starter-validation" conprueba la validacion de la entidad
+    public Vehiculo registerVehiculo(@Valid @RequestBody Vehiculo vehiculo){
+        //validacion de placa
+        // if(Objects.nonNull(vehiculo.getPlaca()) && !vehiculo.getPlaca().isEmpty()){
+        //     if(vehiculo.getPlaca().contains("-")){
+        //         return servicesVehiculosImpl.saveVehiculo(vehiculo);
+        //     }
+        // }
+        // return null;
+        return servicesVehiculosImpl.saveVehiculo(vehiculo);
     }
 
-    @PutMapping("/actualizar/{placa}")
-    public Vehiculo actualizarVehiculo(@PathVariable String placa, @RequestBody Vehiculo vehiculo){
+    @PutMapping("/actualizar/{placa}")//indicamos que este metodo posiblemente pueda arrojar un error del tipo "VehiculoNoFundException", lo hacemos asi tambien el los servicios.
+    public Vehiculo actualizarVehiculo(@PathVariable String placa, @RequestBody Vehiculo vehiculo) throws VehiculoNoFundException{
         return servicesVehiculosImpl.updateVehiculo(placa, vehiculo);
     }
 
