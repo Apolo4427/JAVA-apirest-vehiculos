@@ -19,7 +19,6 @@ import com.lavadero.apirestlavadero.error.VehiculoNoFundException;
 import jakarta.validation.Valid;
 
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 public class VehiculoController {

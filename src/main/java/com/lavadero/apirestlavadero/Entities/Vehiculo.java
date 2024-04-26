@@ -9,8 +9,13 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
+import lombok.Data;
+
 
 @Entity
+@Data
+@Builder
 public class Vehiculo {
 
     @Id

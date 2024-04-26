@@ -7,7 +7,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,7 +29,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     //sobrecargamos el metodo con el que spring boot esta manejando la excepcion de argumento no valido
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-            HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+    HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         
         Map<String,Object> errors= new HashMap<>();
         //NOTA: ex = exception -> de la excepcion obtenemos el resultado atravez de  getBindingResult()
