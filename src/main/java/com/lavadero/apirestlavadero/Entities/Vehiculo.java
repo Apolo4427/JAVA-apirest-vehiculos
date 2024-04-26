@@ -17,6 +17,7 @@ public class Vehiculo {
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     //private Long id;
     @NotBlank(message = "Por favor ingrese una placa, no registrada anteriormente")
+    @Length(min = 7, message = "la placa debe tener min 7 caracteres, ejemplo: XXX-123, recuerda incluir el gion('-')")
     private String placa;
     private String nombre;
     @Length(min=10, max =14)
