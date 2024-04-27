@@ -10,10 +10,12 @@ import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
+import lombok.Data;
 
 
 
 @Entity
+@Data//genera automáticamente ciertos métodos como toString(), equals(), hashCode(), getters y setters
 @Builder
 public class Vehiculo {
 
