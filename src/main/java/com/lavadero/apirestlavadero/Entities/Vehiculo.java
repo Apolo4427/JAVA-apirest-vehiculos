@@ -10,11 +10,10 @@ import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
-import lombok.Data;
+
 
 
 @Entity
-@Data
 @Builder
 public class Vehiculo {
 
@@ -41,6 +40,27 @@ public class Vehiculo {
     //     this.placa = placa;
     //     this.numero_lavadas = lavadas;
     // }
+
+    public Vehiculo(){
+
+    }
+
+    
+
+    public Vehiculo(
+            @NotBlank(message = "Por favor ingrese una placa, no registrada anteriormente") @Length(min = 7, message = "la placa debe tener min 7 caracteres, ejemplo: XXX-123, recuerda incluir el gion('-')") String placa,
+            String nombre, @Length(min = 10, max = 14) String telefono,
+            @DecimalMin(value = "1", message = "El valor debe ser igual o mayor a 1") @DecimalMax(value = "6", message = "El valor debe ser igual o menor a 6") int numero_lavadas,
+            String descripcion) {
+        this.placa = placa;
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.numero_lavadas = numero_lavadas;
+        this.descripcion = descripcion;
+    }
+
+
+
     public String getDescripcion() {
         return descripcion;
     }
