@@ -11,7 +11,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.lavadero.apirestlavadero.Entities.Vehiculo;
-import com.lavadero.apirestlavadero.Services.ServicesVehiculos;
 import com.lavadero.apirestlavadero.Services.ServicesVehiculosImpl;
 
 import org.springframework.test.web.servlet.ResultMatcher;
@@ -52,7 +51,13 @@ public class VehiculoControllerTest extends MockMvcRequestBuilders {
 
         Mockito.when(servicesVehiculosImpl.saveVehiculo(metodoPostVehiculo)).thenReturn(metodoPostVehiculo);
 
-        mockMvc.perform(post("/registrar").contentType(MediaType.APPLICATION_JSON)).andExpect((ResultMatcher) status().isOk());
+        mockMvc.perform(post("/registrar").contentType(MediaType.APPLICATION_JSON).content("{\n"+
+                                                                                           "   \"placa\":\"DET-46G\",\n"+
+                                                                                           "   \"nombre\":\"Juanita\",\n"+
+                                                                                           "   \"telefono\":\"3143742829\",\n"+
+                                                                                           "   \"numero_lavadas\":1,\n"+
+                                                                                           "   \"descripcion\":\"mazda 2 blanco\"\n"+
+                                                                                        "}")).andExpect((ResultMatcher) status().isOk());
     }
 
 }

@@ -36,6 +36,5 @@ public class ServicesVehiculosTest {
         //se simulara un llamado a la base de datos retornando el vehiculo instanciado mediante el builder, en este metodo
     }
 
-
-    
+   
 }

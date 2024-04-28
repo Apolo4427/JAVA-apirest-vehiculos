@@ -40,6 +40,11 @@ public class ServicesVehiculosImpl implements ServicesVehiculos{
         //     }
         // }
 
+        //validacion numero_lavadas
+        if(vehiculo.getNumero_lavadas()<-1){
+            vehiculo.setNumero_lavadas(1);
+        }
+
         return vehiculosRepository.save(vehiculo);
     }
 
