@@ -14,7 +14,11 @@ import com.lavadero.apirestlavadero.Entities.Vehiculo;
 import com.lavadero.apirestlavadero.Services.ServicesVehiculosImpl;
 
 import org.springframework.test.web.servlet.ResultMatcher;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.Optional;
 
 
 //          espesificamos que controlador deseamos testeasr
@@ -27,11 +31,11 @@ public class VehiculoControllerTest extends MockMvcRequestBuilders {
     @MockBean
     private ServicesVehiculosImpl servicesVehiculosImpl;//simulamos los servicios
 
-    private Vehiculo vehiculo;
+    private Vehiculo vehiculo1;
 
     @BeforeEach
     void setUp(){
-        vehiculo = Vehiculo.builder()
+        this.vehiculo1 = Vehiculo.builder()
                                     .placa("MAF-98A")
                                     .nombre("Sergio")
                                     .numero_lavadas(1)
@@ -57,7 +61,15 @@ public class VehiculoControllerTest extends MockMvcRequestBuilders {
                                                                                            "   \"telefono\":\"3143742829\",\n"+
                                                                                            "   \"numero_lavadas\":1,\n"+
                                                                                            "   \"descripcion\":\"mazda 2 blanco\"\n"+
-                                                                                        "}")).andExpect((ResultMatcher) status().isOk());
+                                                                                        "}")).andExpect((ResultMatcher) status().isOk());//devuleve estado HTTP 200?
+    }
+
+    @Test 
+    public void testFindAllVehiculos()throws Exception{
+        Mockito.when(servicesVehiculosImpl.findVehiculoByPlaca(this.vehiculo1.getPlaca())).thenReturn(this.vehiculo1);
+
+        mockMvc.perform(get("/vehiculos/MAF-98A").contentType(MediaType.APPLICATION_JSON)).andExpect((ResultMatcher) status().isOk())//devuleve estado HTTP 200?
+                                                                                            .andExpect((ResultMatcher) jsonPath("$.placa").value(this.vehiculo1.getPlaca()));//la respuesta en el json campo placa es igual a this.vehiculo1.getPlaca()?
     }
 
 }

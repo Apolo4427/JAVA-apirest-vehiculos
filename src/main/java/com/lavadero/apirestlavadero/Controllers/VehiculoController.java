@@ -31,6 +31,11 @@ public class VehiculoController {
         return servicesVehiculosImpl.findAllVehiculos();
     }
 
+    @GetMapping("/vehiculos/{placa}")
+    public Vehiculo findVehiculoByPlaca(@PathVariable String placa) throws VehiculoNoFundException{
+        return servicesVehiculosImpl.findVehiculoByPlaca(placa);
+    }
+
     @PostMapping("/registrar")//@Valid -> "spring-boot-starter-validation" conprueba la validacion de la entidad
     public Vehiculo registerVehiculo(@Valid @RequestBody Vehiculo vehiculo){
         //validacion de placa
