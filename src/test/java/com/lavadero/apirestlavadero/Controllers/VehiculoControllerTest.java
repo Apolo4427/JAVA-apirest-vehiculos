@@ -64,8 +64,8 @@ public class VehiculoControllerTest extends MockMvcRequestBuilders {
                                                                                         "}")).andExpect((ResultMatcher) status().isOk());//devuleve estado HTTP 200?
     }
 
-    @Test 
-    public void testFindAllVehiculos()throws Exception{
+    @Test
+    public void testFindVehiculosByPlaca()throws Exception{
         Mockito.when(servicesVehiculosImpl.findVehiculoByPlaca(this.vehiculo1.getPlaca())).thenReturn(this.vehiculo1);
 
         mockMvc.perform(get("/vehiculos/MAF-98A").contentType(MediaType.APPLICATION_JSON)).andExpect((ResultMatcher) status().isOk())//devuleve estado HTTP 200?
