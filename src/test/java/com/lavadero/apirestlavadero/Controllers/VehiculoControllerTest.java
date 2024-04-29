@@ -18,9 +18,6 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.Optional;
-
-
 //          espesificamos que controlador deseamos testeasr
 @WebMvcTest(VehiculoController.class)//  se utiliza en pruebas unitarias de Spring Boot para testear controladores web en un entorno de simulación de servidor HTTP.
 public class VehiculoControllerTest extends MockMvcRequestBuilders {
